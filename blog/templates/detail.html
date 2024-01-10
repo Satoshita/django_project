@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<style>
+	hr {
+		margin-top: 14px;
+		margin-bottom: 5px;
+	}
+	.btn {
+		float: right;
+		margin-top: -15px;
+	}
+</style>
+	<div class="media content-section d-flex">
+		<div>
+			<img src="{{ object.author.profile.image.url }}" class="rounded-circle article-img"/>
+		</div>
+		<div>
+			<small><a href="{% url 'blog:user-posts' post.author.username %}">@{{ object.author }}</a> - {{ object.date_posted|date:"F d日, Y年" }}</small>
+			{% if object.author == user %}
+				<a href="{% url 'blog:delete' object.id %}" class="btn btn-outline-danger btn-sm mt-0 mb-1">Delete</a>
+				<a href="{% url 'blog:update' object.id %}" class="btn btn-outline-primary btn-sm mt-0 mb-1 ms-2 me-1">Update</a>
+			{% endif %}
+			<hr>
+			<h3>{{ object.title }}</h3>
+			<p>{{ object.content }}</p>
+		</div>
+	</div>
+	<a href="{% url 'blog:home' %}">Go back</a>
+{% endblock %}
